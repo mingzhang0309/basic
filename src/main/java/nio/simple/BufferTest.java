@@ -15,8 +15,8 @@ public class BufferTest {
             System.out.println(buffer.get());
             System.out.println(buffer.get());
             System.out.println(buffer.get());
-            buffer.compact();
-            System.out.println(buffer.get());
+
+            buffer.rewind();
             System.out.println(buffer.get());
             System.out.println(buffer.get());
             System.out.println(buffer.get());
