@@ -80,7 +80,6 @@ public class Client {
 
             while (true) {
                 int selected = selector.select();
-                selector.select();
                 System.out.println("SENDING_SOMETHING_NOW SELECTOR=" + selected);
 
                 Set<SelectionKey> selectedKeys = selector.selectedKeys();
@@ -94,12 +93,13 @@ public class Client {
                     }
 
                     if (key.isConnectable()) {
+                        System.out.println("连接完毕 " + key.interestOps());
                         SocketChannel keyChannel = (SocketChannel) key.channel();
                         keyChannel.finishConnect();
                         // System.out.println("CONNECTED TO SERVER");
                         key.interestOps(SelectionKey.OP_WRITE);
                     } else if (key.isReadable()) {
-                        System.out.println("STARTING READ " + key.interestOps());
+                        System.out.println("读事件就绪 " + key.interestOps());
                         if (buffer == null) {
                             buffer = ByteBuffer.allocate(5);
                         }
@@ -168,7 +168,7 @@ public class Client {
 
                         System.out.println("READ DONE");
                     } else if (key.isWritable()) {
-                        // System.out.println("WRITE START " + key.interestOps());
+                        System.out.println("写事件就绪 " + key.interestOps());
                         SocketChannel keyChannel = (SocketChannel) key.channel();
                         if (buffer == null)
                             synchronized (this) {

@@ -72,9 +72,9 @@ public class Server {
                     accept.register(selector, SelectionKey.OP_READ);
 
                     iterator.remove();
-                    System.out.println("ACCEPTED CONNECTION");
+                    System.out.println("连接");
                 } else if (key.isReadable()) {
-                    System.out.println("STARTING READ");
+                    System.out.println("读");
 
                     Integer contentLengh = contentLenths.get(key);
 
@@ -161,7 +161,7 @@ public class Server {
                 } else if (key.isWritable()) {
 
                     ByteBuffer buffer = byteBufferStore.get(key);
-                    System.out.println("STARTING WRITE " + new String(buffer.array()));
+                    System.out.println("写 " + new String(buffer.array()));
                     if (buffer == null || buffer.remaining() == 0) {
                         if (buffer != null) {
                             System.out.println("WRITE COMPLETE =" + new String(buffer.array()));
